@@ -1,3 +1,21 @@
-header-left {
-  background-color: aqua;
+.header {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgrey;
+  margin: 5px auto;
+}
+
+.title {
+  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-weight: bolder;
+  font-size: 2em;
+}
+
+.header-left,
+.header-right {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 5%;
+  margin: 5px 15px;
 }
