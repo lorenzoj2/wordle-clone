@@ -1,5 +1,5 @@
 .game-board {
-  margin: 10vh auto;
+  margin: 10vh auto 8vh auto;
   display: flex;
   gap: 5px;
   flex-direction: column;
