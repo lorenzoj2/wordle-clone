@@ -1,9 +1,15 @@
 import React from 'react';
 import './App.css';
 import Header from './Header';
+import GameBoard from './GameBoard';
 
 function App() {
-  return <Header />;
+  return (
+    <>
+      <Header />
+      <GameBoard />
+    </>
+  );
 }
 
 export default App;

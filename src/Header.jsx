@@ -9,7 +9,7 @@ function Header() {
   return (
     <header className="header">
       <div className="header-left">
-        <BsList size={25} style={{ 'stroke-width': 0.75 }} />
+        <BsList size={25} style={{ strokeWidth: 0.75 }} />
         <BsQuestionCircle size={20} />
       </div>
       <div className="title">Wordle</div>

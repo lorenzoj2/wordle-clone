@@ -1,0 +1,19 @@
+.game-board {
+  margin: 10vh auto;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+}
+
+.game-row {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.game-tile {
+  height: 7.5vh;
+  aspect-ratio: 1;
+  border: 2px solid lightgrey;
+}
