@@ -5,9 +5,10 @@
 }
 
 .title {
-  font-family: 'Clear Sans', 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Rockwell', 'Times New Roman';
   font-weight: bolder;
   font-size: 2em;
+  pointer-events: none;
 }
 
 .header-left,
@@ -17,4 +18,8 @@
   justify-content: space-between;
   width: 8vh;
   margin: 5px 15px;
+}
+
+.header-icon {
+  cursor: pointer;
 }

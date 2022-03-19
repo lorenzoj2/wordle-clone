@@ -9,13 +9,17 @@ function Header() {
   return (
     <header className="header">
       <div className="header-left">
-        <BsList size={25} style={{ strokeWidth: 0.75 }} />
-        <BsQuestionCircle size={20} />
+        <BsList
+          className="header-icon"
+          size={25}
+          style={{ strokeWidth: 0.75 }}
+        />
+        <BsQuestionCircle className="header-icon" size={20} />
       </div>
       <div className="title">Wordle</div>
       <div className="header-right">
-        <BiBarChartAlt2 size={25} />
-        <GoGear size={25} />
+        <BiBarChartAlt2 className="header-icon" size={25} />
+        <GoGear className="header-icon" size={25} />
       </div>
     </header>
   );

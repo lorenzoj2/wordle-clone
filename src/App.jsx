@@ -7,7 +7,7 @@ import Keyboard from './Keyboard';
 function App() {
   const [currentGuess, setCurrentGuess] = useState([]);
 
-  function updateGuess(e) {
+  function handleKeyPress(e) {
     if (e === 'DEL') {
       let temp = [...currentGuess];
       temp.pop();
@@ -17,13 +17,11 @@ function App() {
     }
   }
 
-  console.log(currentGuess);
-
   return (
     <>
       <Header />
-      <GameBoard />
-      <Keyboard updateGuess={updateGuess} />
+      <GameBoard currentGuess={currentGuess} />
+      <Keyboard handleKeyPress={handleKeyPress} />
     </>
   );
 }

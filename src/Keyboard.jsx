@@ -11,7 +11,7 @@ function Keyboard(props) {
   ];
 
   function handleKeyPress(e) {
-    props.updateGuess(e.target.id);
+    props.handleKeyPress(e.target.id);
   }
 
   return (
