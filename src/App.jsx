@@ -6,21 +6,32 @@ import Keyboard from './Keyboard';
 
 function App() {
   const [currentGuess, setCurrentGuess] = useState([]);
+  const [guessIndex, setGuessIndex] = useState(0);
 
   function handleKeyPress(e) {
-    if (e === 'DEL') {
-      let temp = [...currentGuess];
-      temp.pop();
-      setCurrentGuess(temp);
-    } else if (currentGuess.length <= 4) {
-      setCurrentGuess((currentGuess) => [...currentGuess, e]);
+    if (guessIndex <= 5) {
+      // DEL
+      if (e === 'DEL') {
+        let temp = [...currentGuess];
+        temp.pop();
+        setCurrentGuess(temp);
+      }
+      // Enter
+      else if (currentGuess.length >= 5 && e === 'ENTER') {
+        setGuessIndex(guessIndex + 1);
+        setCurrentGuess([]);
+      }
+      // All other keys
+      else if (currentGuess.length <= 4 && e !== 'ENTER') {
+        setCurrentGuess((currentGuess) => [...currentGuess, e]);
+      }
     }
   }
 
   return (
     <>
       <Header />
-      <GameBoard currentGuess={currentGuess} />
+      <GameBoard currentGuess={currentGuess} guessIndex={guessIndex} />
       <Keyboard handleKeyPress={handleKeyPress} />
     </>
   );

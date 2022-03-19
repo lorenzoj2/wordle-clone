@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './GameBoard.css';
 
 function GameBoard(props) {
-  var guesses = new Array(6).fill(0).map(() => new Array(5).fill(0));
+  const [guesses] = useState(
+    new Array(6).fill(0).map(() => new Array(5).fill(0))
+  );
 
-  if (props.currentGuess.length >= 0) {
+  if (props.currentGuess.length >= 0 && props.guessIndex <= 5) {
     let temp = new Array(5).fill(0);
     props.currentGuess.forEach((value, index) => (temp[index] = value));
-    guesses[0] = temp;
+    guesses[props.guessIndex] = temp;
   }
 
   return (
