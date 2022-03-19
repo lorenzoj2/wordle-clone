@@ -5,6 +5,7 @@ import GameBoard from './GameBoard';
 import Keyboard from './Keyboard';
 
 function App() {
+  const [currentAnswer, setCurrentAnswer] = useState('POWER');
   const [currentGuess, setCurrentGuess] = useState([]);
   const [guessIndex, setGuessIndex] = useState(0);
 
@@ -31,7 +32,11 @@ function App() {
   return (
     <>
       <Header />
-      <GameBoard currentGuess={currentGuess} guessIndex={guessIndex} />
+      <GameBoard
+        currentAnswer={currentAnswer}
+        currentGuess={currentGuess}
+        guessIndex={guessIndex}
+      />
       <Keyboard handleKeyPress={handleKeyPress} />
     </>
   );

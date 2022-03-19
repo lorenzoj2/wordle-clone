@@ -12,14 +12,29 @@ function GameBoard(props) {
     guesses[props.guessIndex] = temp;
   }
 
+  function getTileClass(tile, index, row_index) {
+    if (row_index < props.guessIndex) {
+      if (props.currentAnswer[index] === tile) {
+        return 'game-tile correct';
+      } else if (props.currentAnswer.includes(tile)) {
+        return 'game-tile in-word';
+      } else if (!props.currentAnswer.includes(tile)) {
+        return 'game-tile not-in-word';
+      }
+    }
+    return 'game-tile filled';
+  }
+
   return (
     <div className="game-board">
-      {guesses.map((guess, index) => (
-        <div key={index} className="game-row">
+      {guesses.map((guess, row_index) => (
+        <div key={row_index} className="game-row">
           {guess.map((tile, index) => (
             <section
               key={index}
-              className={tile === 0 ? 'game-tile' : 'game-tile filled'}
+              className={
+                tile === 0 ? 'game-tile' : getTileClass(tile, index, row_index)
+              }
             >
               {tile === 0 ? '' : tile}
             </section>
