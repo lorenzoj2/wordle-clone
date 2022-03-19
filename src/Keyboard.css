@@ -8,7 +8,6 @@
 
 .keyboard-row {
   display: flex;
-  width: auto;
   gap: 8px;
   justify-content: space-around;
 }
@@ -38,4 +37,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .keyboard-key {
+    height: 8vh;
+    line-height: 8vh;
+    aspect-ratio: 0.5;
+  }
+  .enter {
+    aspect-ratio: 0.9;
+  }
+  .del {
+    aspect-ratio: 0.8;
+  }
 }

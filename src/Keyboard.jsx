@@ -7,11 +7,11 @@ function Keyboard(props) {
   let keys = [
     ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-    ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'DEL']
+    ['ENTER', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', 'BACKSPACE']
   ];
 
-  function handleKeyPress(e) {
-    props.handleKeyPress(e.target.id);
+  function handleOnScreenKeyPress(e) {
+    props.handleOnScreenKeyPress(e.target.id);
   }
 
   return (
@@ -22,7 +22,7 @@ function Keyboard(props) {
             if (letter === 'ENTER')
               return (
                 <section
-                  onClick={(e) => handleKeyPress(e)}
+                  onClick={(e) => handleOnScreenKeyPress(e)}
                   id={'ENTER'}
                   className="keyboard-key enter"
                   key={index}
@@ -30,11 +30,11 @@ function Keyboard(props) {
                   {letter}
                 </section>
               );
-            else if (letter === 'DEL')
+            else if (letter === 'BACKSPACE')
               return (
                 <section
-                  onClick={(e) => handleKeyPress(e)}
-                  id={'DEL'}
+                  onClick={(e) => handleOnScreenKeyPress(e)}
+                  id={'BACKSPACE'}
                   className="keyboard-key del"
                   key={index}
                 >
@@ -44,7 +44,7 @@ function Keyboard(props) {
             else
               return (
                 <section
-                  onClick={(e) => handleKeyPress(e)}
+                  onClick={(e) => handleOnScreenKeyPress(e)}
                   id={letter}
                   className="keyboard-key"
                   key={index}

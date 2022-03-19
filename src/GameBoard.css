@@ -36,7 +36,7 @@
 
 .not-in-word {
   background-color: black;
-  opacity: 0.55;
+  opacity: 0.5;
   border: 2px solid transparent;
   color: white;
 }
@@ -46,4 +46,10 @@
   opacity: 0.75;
   border: 2px solid transparent;
   color: white;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .game-board {
+    margin: 2vh auto 2vh auto;
+  }
 }
