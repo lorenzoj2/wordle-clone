@@ -1,24 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './GameBoard.css';
 
 function GameBoard(props) {
-  const [guesses] = useState(
-    new Array(6).fill(0).map(() => new Array(5).fill(0))
-  );
-
-  if (props.currentGuess.length >= 0 && props.guessIndex <= 5) {
+  if (
+    props.currentGuess.length >= 0 &&
+    props.guessIndex <= 5 &&
+    props.currentGuess.length <= 5 &&
+    !props.loading
+  ) {
     let temp = new Array(5).fill(0);
     props.currentGuess.forEach((value, index) => (temp[index] = value));
-    guesses[props.guessIndex] = temp;
+    props.guesses[props.guessIndex] = temp;
   }
 
   function getTileClass(tile, index, row_index) {
     if (row_index < props.guessIndex) {
-      if (props.currentAnswer[index] === tile) {
+      if (props.guessResults[row_index][index] === 2) {
         return 'game-tile correct';
-      } else if (props.currentAnswer.includes(tile)) {
+      } else if (props.guessResults[row_index][index] === 1) {
         return 'game-tile in-word';
-      } else if (!props.currentAnswer.includes(tile)) {
+      } else {
         return 'game-tile not-in-word';
       }
     }
@@ -27,7 +28,7 @@ function GameBoard(props) {
 
   return (
     <div className="game-board">
-      {guesses.map((guess, row_index) => (
+      {props.guesses.map((guess, row_index) => (
         <div key={row_index} className="game-row">
           {guess.map((tile, index) => (
             <section

@@ -39,7 +39,7 @@
   justify-content: center;
 }
 
-@media only screen and (max-device-width: 480px) {
+@media only screen and (max-device-width: 480pxw) {
   .keyboard-key {
     height: 8vh;
     line-height: 8vh;

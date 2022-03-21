@@ -5,9 +5,18 @@ import GameBoard from './GameBoard';
 import Keyboard from './Keyboard';
 
 function App() {
-  const [currentAnswer] = useState('TOWER');
+  const [currentAnswer, setCurrentAnswer] = useState('TOWER');
   const [currentGuess, setCurrentGuess] = useState([]);
   const [guessIndex, setGuessIndex] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+  const [guesses] = useState(
+    new Array(6).fill(0).map(() => new Array(5).fill(0))
+  );
+
+  const [guessResults] = useState(
+    new Array(6).fill(0).map(() => new Array(5).fill(0))
+  );
 
   useEffect(() => {
     function handleKeyDown(e) {
@@ -36,13 +45,38 @@ function App() {
         setCurrentGuess(temp);
       }
       // Enter
-      else if (currentGuess.length >= 5 && e === 'ENTER') {
-        setGuessIndex(guessIndex + 1);
+      else if (currentGuess.length === 5 && e === 'ENTER') {
+        setLoading(true);
+
+        var tempAnswer = currentAnswer.split('');
+
+        // Check guess for correct letter placement
+        for (let i = 0; i <= 4; i++) {
+          if (currentGuess[i] === tempAnswer[i]) {
+            guessResults[guessIndex][i] = 2;
+            tempAnswer[tempAnswer.indexOf(currentGuess[i])] = '';
+          }
+        }
+
+        // Check guess for letters in answer
+        for (let j = 0; j <= 4; j++) {
+          if (
+            guessResults[guessIndex][j] !== 2 &&
+            tempAnswer.includes(currentGuess[j])
+          ) {
+            guessResults[guessIndex][j] = 1;
+            tempAnswer[tempAnswer.indexOf(currentGuess[j])] = '';
+          }
+        }
+
         setCurrentGuess([]);
+        setGuessIndex(guessIndex + 1);
 
         if (currentGuess.join('') === currentAnswer) {
           setGuessIndex(6);
         }
+
+        setLoading(false);
       }
       // All other keys
       else if (currentGuess.length <= 4 && e !== 'ENTER') {
@@ -54,12 +88,22 @@ function App() {
   return (
     <>
       <Header />
-      <GameBoard
+
+      {!loading && (
+        <GameBoard
+          guesses={guesses}
+          guessResults={guessResults}
+          currentAnswer={currentAnswer}
+          currentGuess={currentGuess}
+          guessIndex={guessIndex}
+          loading={loading}
+        />
+      )}
+
+      <Keyboard
         currentAnswer={currentAnswer}
-        currentGuess={currentGuess}
-        guessIndex={guessIndex}
+        handleOnScreenKeyPress={handleOnScreenKeyPress}
       />
-      <Keyboard handleOnScreenKeyPress={handleOnScreenKeyPress} />
     </>
   );
 }
