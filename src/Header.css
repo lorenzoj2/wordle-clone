@@ -15,9 +15,9 @@
 .header-right {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 8vh;
-  margin: 5px 15px;
+  justify-content: space-around;
+  width: 10vh;
+  margin-bottom: 1vh;
 }
 
 .header-icon {

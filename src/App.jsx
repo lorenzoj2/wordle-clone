@@ -5,10 +5,12 @@ import GameBoard from './GameBoard';
 import Keyboard from './Keyboard';
 
 function App() {
-  const [currentAnswer, setCurrentAnswer] = useState('TOWER');
+  const [currentAnswer] = useState('TOWER');
   const [currentGuess, setCurrentGuess] = useState([]);
   const [guessIndex, setGuessIndex] = useState(0);
   const [loading, setLoading] = useState(false);
+
+  const [keysPressed] = useState([[], [], []]);
 
   const [guesses] = useState(
     new Array(6).fill(0).map(() => new Array(5).fill(0))
@@ -55,6 +57,7 @@ function App() {
           if (currentGuess[i] === tempAnswer[i]) {
             guessResults[guessIndex][i] = 2;
             tempAnswer[tempAnswer.indexOf(currentGuess[i])] = '';
+            keysPressed[0].push(currentGuess[i]);
           }
         }
 
@@ -66,6 +69,9 @@ function App() {
           ) {
             guessResults[guessIndex][j] = 1;
             tempAnswer[tempAnswer.indexOf(currentGuess[j])] = '';
+            keysPressed[1].push(currentGuess[j]);
+          } else {
+            keysPressed[2].push(currentGuess[j]);
           }
         }
 
@@ -93,7 +99,6 @@ function App() {
         <GameBoard
           guesses={guesses}
           guessResults={guessResults}
-          currentAnswer={currentAnswer}
           currentGuess={currentGuess}
           guessIndex={guessIndex}
           loading={loading}
@@ -101,8 +106,8 @@ function App() {
       )}
 
       <Keyboard
-        currentAnswer={currentAnswer}
         handleOnScreenKeyPress={handleOnScreenKeyPress}
+        keysPressed={keysPressed}
       />
     </>
   );

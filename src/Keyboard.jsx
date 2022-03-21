@@ -14,6 +14,18 @@ function Keyboard(props) {
     props.handleOnScreenKeyPress(e.target.id);
   }
 
+  function getKeyClass(letter) {
+    if (props.keysPressed[0].includes(letter)) {
+      return 'keyboard-key key-correct';
+    } else if (props.keysPressed[1].includes(letter)) {
+      return 'keyboard-key key-in-word';
+    } else if (props.keysPressed[2].includes(letter)) {
+      return 'keyboard-key key-not-in-word';
+    } else {
+      return 'keyboard-key';
+    }
+  }
+
   return (
     <div className="keyboard">
       {keys.map((key, index) => (
@@ -46,7 +58,7 @@ function Keyboard(props) {
                 <section
                   onClick={(e) => handleOnScreenKeyPress(e)}
                   id={letter}
-                  className="keyboard-key"
+                  className={getKeyClass(letter)}
                   key={index}
                 >
                   {letter}

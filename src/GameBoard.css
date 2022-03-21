@@ -27,6 +27,13 @@
   border: 2px solid grey;
 }
 
+.correct {
+  background-color: forestgreen;
+  opacity: 0.75;
+  border: 2px solid transparent;
+  color: white;
+}
+
 .in-word {
   background-color: darkgoldenrod;
   opacity: 0.65;
@@ -37,13 +44,6 @@
 .not-in-word {
   background-color: black;
   opacity: 0.5;
-  border: 2px solid transparent;
-  color: white;
-}
-
-.correct {
-  background-color: forestgreen;
-  opacity: 0.75;
   border: 2px solid transparent;
   color: white;
 }

@@ -8,7 +8,7 @@
 
 .keyboard-row {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   justify-content: space-around;
 }
 
@@ -39,11 +39,29 @@
   justify-content: center;
 }
 
-@media only screen and (max-device-width: 480pxw) {
+.key-correct {
+  background-color: forestgreen;
+  opacity: 0.75;
+  color: white;
+}
+
+.key-in-word {
+  background-color: darkgoldenrod;
+  opacity: 0.65;
+  color: white;
+}
+
+.key-not-in-word {
+  background-color: black;
+  opacity: 0.5;
+  color: white;
+}
+
+@media only screen and (max-device-width: 480px) {
   .keyboard-key {
     height: 8vh;
     line-height: 8vh;
-    aspect-ratio: 0.5;
+    aspect-ratio: 0.55;
   }
   .enter {
     aspect-ratio: 0.9;
