@@ -4,18 +4,23 @@ import Header from './Header';
 import GameBoard from './GameBoard';
 import Keyboard from './Keyboard';
 
+import words from './words.json';
+
 function App() {
-  const [currentAnswer] = useState('TOWER');
+  const [currentAnswer] = useState('LOSER');
   const [currentGuess, setCurrentGuess] = useState([]);
   const [guessIndex, setGuessIndex] = useState(0);
   const [loading, setLoading] = useState(false);
 
+  // Record which keys were pressed
   const [keysPressed] = useState([[], [], []]);
 
+  // Game board
   const [guesses] = useState(
     new Array(6).fill(0).map(() => new Array(5).fill(0))
   );
 
+  // Game board results , 2 = correct, 1 = in-word, and 0 = not in-word
   const [guessResults] = useState(
     new Array(6).fill(0).map(() => new Array(5).fill(0))
   );
@@ -50,36 +55,41 @@ function App() {
       else if (currentGuess.length === 5 && e === 'ENTER') {
         setLoading(true);
 
-        var tempAnswer = currentAnswer.split('');
+        var filteredWords = words[currentGuess[0]];
 
-        // Check guess for correct letter placement
-        for (let i = 0; i <= 4; i++) {
-          if (currentGuess[i] === tempAnswer[i]) {
-            guessResults[guessIndex][i] = 2;
-            tempAnswer[tempAnswer.indexOf(currentGuess[i])] = '';
-            keysPressed[0].push(currentGuess[i]);
+        // Check word list for valid word
+        if (filteredWords.includes(currentGuess.join(''))) {
+          var tempAnswer = currentAnswer.split('');
+
+          // Check guess for correct letter placement
+          for (let i = 0; i <= 4; i++) {
+            if (currentGuess[i] === tempAnswer[i]) {
+              guessResults[guessIndex][i] = 2;
+              tempAnswer[tempAnswer.indexOf(currentGuess[i])] = '';
+              keysPressed[0].push(currentGuess[i]);
+            }
           }
-        }
 
-        // Check guess for letters in answer
-        for (let j = 0; j <= 4; j++) {
-          if (
-            guessResults[guessIndex][j] !== 2 &&
-            tempAnswer.includes(currentGuess[j])
-          ) {
-            guessResults[guessIndex][j] = 1;
-            tempAnswer[tempAnswer.indexOf(currentGuess[j])] = '';
-            keysPressed[1].push(currentGuess[j]);
-          } else {
-            keysPressed[2].push(currentGuess[j]);
+          // Check guess for letters in answer
+          for (let j = 0; j <= 4; j++) {
+            if (
+              guessResults[guessIndex][j] !== 2 &&
+              tempAnswer.includes(currentGuess[j])
+            ) {
+              guessResults[guessIndex][j] = 1;
+              tempAnswer[tempAnswer.indexOf(currentGuess[j])] = '';
+              keysPressed[1].push(currentGuess[j]);
+            } else {
+              keysPressed[2].push(currentGuess[j]);
+            }
           }
-        }
 
-        setCurrentGuess([]);
-        setGuessIndex(guessIndex + 1);
+          setCurrentGuess([]);
+          setGuessIndex(guessIndex + 1);
 
-        if (currentGuess.join('') === currentAnswer) {
-          setGuessIndex(6);
+          if (currentGuess.join('') === currentAnswer) {
+            setGuessIndex(6);
+          }
         }
 
         setLoading(false);
