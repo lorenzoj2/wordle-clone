@@ -1,8 +1,14 @@
-import { React } from 'react';
+import { React, useState } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
+import Switch from 'react-switch';
+
 import './Settings.css';
 
 function Settings(props) {
+  const [hardMode, setHardMode] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(false);
+  const [highContrast, setHighContrast] = useState(false);
+
   return (
     <div className={'settings-modal'}>
       <div className="settings-title">
@@ -15,6 +21,7 @@ function Settings(props) {
           onClick={() => props.setShow(!props.show)}
         />
       </div>
+
       <div className="settings-row">
         <div>
           <span style={{ float: 'left' }}>Hard Mode</span>
@@ -23,12 +30,31 @@ function Settings(props) {
             Any revealed hints must be used in subsequent guesses
           </span>
         </div>
-        <span>Coming Soon</span>
+        <Switch
+          checked={hardMode}
+          onChange={() => setHardMode(!hardMode)}
+          checkedIcon={false}
+          uncheckedIcon={false}
+          height={20}
+          width={35}
+          handleDiameter={15}
+        />
       </div>
+
       <div className="settings-row">
         <span>Dark Theme</span>
-        <span>Coming Soon</span>
+        <Switch
+          checked={darkTheme}
+          onChange={() => setDarkTheme(!darkTheme)}
+          className="toggle"
+          checkedIcon={false}
+          uncheckedIcon={false}
+          height={20}
+          width={35}
+          handleDiameter={15}
+        />
       </div>
+
       <div className="settings-row">
         <div>
           <span style={{ float: 'left' }}>High Contrast Mode</span>
@@ -37,7 +63,15 @@ function Settings(props) {
             For improved color vision
           </span>
         </div>
-        <span>Coming Soon</span>
+        <Switch
+          checked={highContrast}
+          onChange={() => setHighContrast(!highContrast)}
+          checkedIcon={false}
+          uncheckedIcon={false}
+          height={20}
+          width={35}
+          handleDiameter={15}
+        />
       </div>
     </div>
   );

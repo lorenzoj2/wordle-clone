@@ -15,15 +15,23 @@
 
 .settings-title {
   margin: 1vh 0 2vh 0;
-  width: 33%;
+  width: 60vh;
 }
 
 .settings-row {
   font-size: 1.1em;
-  width: 33%;
+  width: 60vh;
   margin: 2vh;
   padding-bottom: 2vh;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid lightgrey;
+}
+
+@media only screen and (max-device-width: 480px) {
+  .settings-title,
+  .settings-row {
+    width: 45vh;
+  }
 }
