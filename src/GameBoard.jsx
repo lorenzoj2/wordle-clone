@@ -5,8 +5,7 @@ function GameBoard(props) {
   if (
     props.currentGuess.length >= 0 &&
     props.guessIndex <= 5 &&
-    props.currentGuess.length <= 5 &&
-    !props.loading
+    props.currentGuess.length <= 5
   ) {
     let temp = new Array(5).fill(0);
     props.currentGuess.forEach((value, index) => (temp[index] = value));
@@ -16,14 +15,24 @@ function GameBoard(props) {
   function getTileClass(tile, index, row_index) {
     if (row_index < props.guessIndex) {
       if (props.guessResults[row_index][index] === 2) {
-        return 'game-tile correct';
+        return 'game-tile filled correct';
       } else if (props.guessResults[row_index][index] === 1) {
-        return 'game-tile in-word';
-      } else {
-        return 'game-tile not-in-word';
+        return 'game-tile filled in-word';
+      } else if (props.guessResults[row_index][index] === 0) {
+        return 'game-tile filled not-in-word';
       }
+    } else {
+      return 'game-tile filled';
     }
-    return 'game-tile filled';
+  }
+
+  const duration = 700;
+  const delay = 500;
+
+  function getAnim(index, row_index, tile) {
+    if ((row_index < props.guessIndex) & (tile !== 0)) {
+      return `flip-tile ${duration}ms ${delay * index}ms forwards`;
+    }
   }
 
   return (
@@ -36,6 +45,7 @@ function GameBoard(props) {
               className={
                 tile === 0 ? 'game-tile' : getTileClass(tile, index, row_index)
               }
+              style={{ animation: getAnim(index, row_index, tile) }}
             >
               {tile === 0 ? '' : tile}
             </section>

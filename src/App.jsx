@@ -10,7 +10,6 @@ function App() {
   const [currentAnswer] = useState('LOSER');
   const [currentGuess, setCurrentGuess] = useState([]);
   const [guessIndex, setGuessIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
 
   // Record which keys were pressed
   const [keysPressed] = useState([[], [], []]);
@@ -53,12 +52,11 @@ function App() {
       }
       // Enter
       else if (currentGuess.length === 5 && e === 'ENTER') {
-        setLoading(true);
-
         var filteredWords = words[currentGuess[0]];
-
         // Check word list for valid word
         if (filteredWords.includes(currentGuess.join(''))) {
+          setGuessIndex(guessIndex + 1);
+
           var tempAnswer = currentAnswer.split('');
 
           // Check guess for correct letter placement
@@ -84,15 +82,13 @@ function App() {
             }
           }
 
-          setCurrentGuess([]);
-          setGuessIndex(guessIndex + 1);
-
           if (currentGuess.join('') === currentAnswer) {
+            setCurrentGuess([]);
             setGuessIndex(6);
           }
-        }
 
-        setLoading(false);
+          setCurrentGuess([]);
+        }
       }
       // All other keys
       else if (currentGuess.length <= 4 && e !== 'ENTER') {
@@ -105,15 +101,14 @@ function App() {
     <>
       <Header />
 
-      {!loading && (
+      {
         <GameBoard
           guesses={guesses}
           guessResults={guessResults}
           currentGuess={currentGuess}
           guessIndex={guessIndex}
-          loading={loading}
         />
-      )}
+      }
 
       <Keyboard
         handleOnScreenKeyPress={handleOnScreenKeyPress}

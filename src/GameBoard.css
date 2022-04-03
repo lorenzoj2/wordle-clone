@@ -28,24 +28,44 @@
 }
 
 .correct {
-  background-color: forestgreen;
-  opacity: 0.75;
-  border: 2px solid transparent;
-  color: white;
+  --tileColor: forestgreen;
+  --tileOpacity: 0.75;
 }
 
 .in-word {
-  background-color: darkgoldenrod;
-  opacity: 0.65;
-  border: 2px solid transparent;
-  color: white;
+  --tileColor: darkgoldenrod;
+  --tileOpacity: 0.65;
 }
 
 .not-in-word {
-  background-color: black;
-  opacity: 0.5;
-  border: 2px solid transparent;
-  color: white;
+  --tileColor: black;
+  --tileOpacity: 0.5;
+}
+
+@keyframes flip-tile {
+  0% {
+    transform: rotateX(0deg);
+    background-color: white;
+    color: black;
+    opacity: 100%;
+    border: 2px solid grey; 
+  }
+
+  50% {
+    transform: rotateX(90deg);
+    background-color: white;
+    color: white;
+    opacity: 100%;
+    border: 2px solid transparent;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    background-color: var(--tileColor);
+    opacity: var(--tileOpacity);
+    border: 2px solid transparent;
+    color: white;
+  }
 }
 
 @media only screen and (max-device-width: 480px) {
@@ -53,3 +73,4 @@
     margin: 1.5vh auto 2vh auto;
   }
 }
+
