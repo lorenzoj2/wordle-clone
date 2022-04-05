@@ -25,21 +25,33 @@
 
 .filled {
   border: 2px solid grey;
+  animation: grow-tile 100ms;
 }
 
 .correct {
-  --tileColor: forestgreen;
-  --tileOpacity: 0.75;
+  --tileColor: #6AAA64;
 }
 
 .in-word {
-  --tileColor: darkgoldenrod;
-  --tileOpacity: 0.65;
+  --tileColor: #C9B458;
 }
 
 .not-in-word {
-  --tileColor: black;
-  --tileOpacity: 0.5;
+  --tileColor: #787C7E;
+}
+
+@keyframes grow-tile {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 @keyframes flip-tile {
@@ -47,7 +59,6 @@
     transform: rotateX(0deg);
     background-color: white;
     color: black;
-    opacity: 100%;
     border: 2px solid grey; 
   }
 
@@ -55,16 +66,25 @@
     transform: rotateX(90deg);
     background-color: white;
     color: white;
-    opacity: 100%;
     border: 2px solid transparent;
   }
 
   100% {
     transform: rotateX(0deg);
     background-color: var(--tileColor);
-    opacity: var(--tileOpacity);
     border: 2px solid transparent;
     color: white;
+  }
+}
+
+@keyframes win-tile {
+  0%, 100% {
+    z-index: 15;
+    transform: translate(0%, 0%);
+  }
+
+  50%{
+    transform: translate(0%, -20%);
   }
 }
 

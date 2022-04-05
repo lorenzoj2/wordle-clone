@@ -7,30 +7,23 @@ import Keyboard from './Keyboard';
 import words from './words.json';
 
 function App() {
-  const [currentAnswer] = useState('LOSER');
+  const [currentAnswer] = useState('TOWER');
   const [currentGuess, setCurrentGuess] = useState([]);
   const [guessIndex, setGuessIndex] = useState(0);
+  const [hasWon, setHasWon] = useState(false);
 
   // Record which keys were pressed
   const [keysPressed] = useState([[], [], []]);
 
   // Game board
-  const [guesses] = useState(
-    new Array(6).fill(0).map(() => new Array(5).fill(0))
-  );
+  const [guesses] = useState(new Array(6).fill(0).map(() => new Array(5).fill(0)));
 
   // Game board results , 2 = correct, 1 = in-word, and 0 = not in-word
-  const [guessResults] = useState(
-    new Array(6).fill(0).map(() => new Array(5).fill(0))
-  );
+  const [guessResults] = useState(new Array(6).fill(0).map(() => new Array(5).fill(0)));
 
   useEffect(() => {
     function handleKeyDown(e) {
-      if (
-        (e.keyCode >= 65 && e.keyCode <= 90) ||
-        e.keyCode === 8 ||
-        e.keyCode === 13
-      ) {
+      if ((e.keyCode >= 65 && e.keyCode <= 90) || e.keyCode === 8 || e.keyCode === 13) {
         handleOnScreenKeyPress(e.key.toUpperCase());
       }
     }
@@ -70,10 +63,7 @@ function App() {
 
           // Check guess for letters in answer
           for (let j = 0; j <= 4; j++) {
-            if (
-              guessResults[guessIndex][j] !== 2 &&
-              tempAnswer.includes(currentGuess[j])
-            ) {
+            if (guessResults[guessIndex][j] !== 2 && tempAnswer.includes(currentGuess[j])) {
               guessResults[guessIndex][j] = 1;
               tempAnswer[tempAnswer.indexOf(currentGuess[j])] = '';
               keysPressed[1].push(currentGuess[j]);
@@ -84,7 +74,7 @@ function App() {
 
           if (currentGuess.join('') === currentAnswer) {
             setCurrentGuess([]);
-            setGuessIndex(6);
+            setHasWon(true);
           }
 
           setCurrentGuess([]);
@@ -101,19 +91,15 @@ function App() {
     <>
       <Header />
 
-      {
-        <GameBoard
-          guesses={guesses}
-          guessResults={guessResults}
-          currentGuess={currentGuess}
-          guessIndex={guessIndex}
-        />
-      }
-
-      <Keyboard
-        handleOnScreenKeyPress={handleOnScreenKeyPress}
-        keysPressed={keysPressed}
+      <GameBoard
+        guesses={guesses}
+        guessResults={guessResults}
+        currentGuess={currentGuess}
+        guessIndex={guessIndex}
+        hasWon={hasWon}
       />
+
+      <Keyboard handleOnScreenKeyPress={handleOnScreenKeyPress} keysPressed={keysPressed} />
     </>
   );
 }

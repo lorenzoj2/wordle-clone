@@ -2,11 +2,7 @@ import React from 'react';
 import './GameBoard.css';
 
 function GameBoard(props) {
-  if (
-    props.currentGuess.length >= 0 &&
-    props.guessIndex <= 5 &&
-    props.currentGuess.length <= 5
-  ) {
+  if (props.currentGuess.length >= 0 && props.currentGuess.length <= 5 && props.guessIndex <= 5 && !props.hasWon) {
     let temp = new Array(5).fill(0);
     props.currentGuess.forEach((value, index) => (temp[index] = value));
     props.guesses[props.guessIndex] = temp;
@@ -26,12 +22,20 @@ function GameBoard(props) {
     }
   }
 
-  const duration = 700;
-  const delay = 500;
+  const duration = 600;
+  const delay = 250;
 
   function getAnim(index, row_index, tile) {
+    // If the guess has already been made
     if ((row_index < props.guessIndex) & (tile !== 0)) {
-      return `flip-tile ${duration}ms ${delay * index}ms forwards`;
+      // If the guess is the winning word
+      if (props.hasWon && props.guessIndex - 1 === row_index) {
+        return `flip-tile ${duration}ms ${delay * index}ms forwards, win-tile ${duration}ms ${
+          (delay / 2) * index + 2000
+        }ms`;
+      } else {
+        return `flip-tile ${duration}ms ${delay * index}ms forwards`;
+      }
     }
   }
 
@@ -42,9 +46,7 @@ function GameBoard(props) {
           {guess.map((tile, index) => (
             <section
               key={index}
-              className={
-                tile === 0 ? 'game-tile' : getTileClass(tile, index, row_index)
-              }
+              className={tile === 0 ? 'game-tile' : getTileClass(tile, index, row_index)}
               style={{ animation: getAnim(index, row_index, tile) }}
             >
               {tile === 0 ? '' : tile}
