@@ -93,9 +93,19 @@ function App() {
     }
   }
 
+  console.log(currentAnswer);
+
   return (
     <>
       <Header />
+
+      {guessIndex > 5 && !hasWon ? (
+        <div className="answer-container">
+          <span className="answer">{currentAnswer}</span>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <GameBoard
         guesses={guesses}
