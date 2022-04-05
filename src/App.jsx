@@ -7,7 +7,7 @@ import Keyboard from './Keyboard';
 import words from './words.json';
 
 function App() {
-  const [currentAnswer] = useState('TOWER');
+  const [currentAnswer, setCurrentAnswer] = useState(getRandomWord());
   const [currentGuess, setCurrentGuess] = useState([]);
   const [guessIndex, setGuessIndex] = useState(0);
   const [hasWon, setHasWon] = useState(false);
@@ -20,6 +20,12 @@ function App() {
 
   // Game board results , 2 = correct, 1 = in-word, and 0 = not in-word
   const [guessResults] = useState(new Array(6).fill(0).map(() => new Array(5).fill(0)));
+
+  function getRandomWord() {
+    let randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+    let randomWord = words[randomLetter][Math.floor(Math.random() * words[randomLetter].length)];
+    return randomWord;
+  }
 
   useEffect(() => {
     function handleKeyDown(e) {
